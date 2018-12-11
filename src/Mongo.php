@@ -3,13 +3,14 @@
 namespace Epsoftware\Laravel\Doctrine\Mongo;
 
 use Epsoftware\Laravel\Doctrine\Mongo\Helpers\Mapper;
+use Doctrine\MongoDB\Connection;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use MongoDB\Client;
+use MongoClient;
 
 class Mongo
 {
@@ -19,9 +20,14 @@ class Mongo
     private $dm;
 
     /**
-     * @var Client
+     * @var MongoClient
     */
     private $client;
+
+    /**
+     * @var Connection
+    */
+    private $connection;
 
     /**
      * @var Configuration
@@ -39,6 +45,7 @@ class Mongo
              ->setConfiguration($doctrineConfigs)
              ->setFilters($doctrineConfigs)
              ->setClient($doctrineConfigs)
+             ->setConnection()
              ->setDefaultDataBase($doctrineConfigs)
              ->setDocumentManager();
     }
@@ -112,7 +119,14 @@ class Mongo
             ],
         ];
 
-        $this->client = new Client($uri, $options, $map);
+        $this->client = new MongoClient($uri, $options, $map);
+
+        return $this;
+    }
+
+    private function setConnection(): self
+    {
+        $this->connection = new Connection($this->client);
 
         return $this;
     }
@@ -130,7 +144,7 @@ class Mongo
 
     private function setDocumentManager(): self
     {
-        $this->dm = DocumentManager::create($this->client, $this->configuration);
+        $this->dm = DocumentManager::create($this->connection, $this->configuration);
 
         return $this;
     }
@@ -158,7 +172,7 @@ class Mongo
         $this->configuration->setDefaultDB($database);
         $this->defaultDatabase = $database;
 
-        $this->dm = DocumentManager::create($this->client, $this->configuration);
+        $this->dm = DocumentManager::create($this->connection, $this->configuration);
 
         return $this;
     }
@@ -168,9 +182,14 @@ class Mongo
         return $this->dm;
     }
 
-    public function getClient(): Client
+    public function getClient(): MongoClient
     {
         return $this->client;
+    }
+
+    public function getConnection(): Connection
+    {
+        return $this->connection;
     }
 
     public function getConfiguration(): Configuration
@@ -178,8 +197,8 @@ class Mongo
         return $this->configuration;
     }
 
-    public function getDatabase(?string $database = null): \MongoDB\Database
+    public function getDatabase(?string $database = null): \MongoDB
     {
-        return $this->client->selectDatabase($database ?? $this->defaultDatabase);
+        return $this->client->selectDB($database ?? $this->defaultDatabase);
     }
 }

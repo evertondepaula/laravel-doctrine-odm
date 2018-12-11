@@ -18,7 +18,7 @@
         "vlucas/phpdotenv": "v2.5.1",
         "symfony/console": "^4.1",
         "alcaeus/mongo-php-adapter": "^1.1",
-        "doctrine/mongodb-odm": "2.0.0-alpha1",
+        "doctrine/mongodb-odm": "v1.2.5",
         "gedmo/doctrine-extensions": "v2.4.36"
     },
     "require-dev": {

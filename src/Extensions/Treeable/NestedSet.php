@@ -9,7 +9,7 @@ use DateTime;
 
 /**
  * @ODM\MappedSuperclass(repositoryClass="Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository")
- * @Gedmo\Tree(type="materializedPath", activateLocking=false)
+ * @Gedmo\Tree(type="materializedPath", activateLocking=true)
  */
 abstract class NestedSet implements MaterializedPath
 {

@@ -17,7 +17,7 @@ class TestCase extends Test
     
     protected function tearDown()
     {
-        Mongo::getClient()->dropDatabase($this->database);
+        Mongo::getClient()->dropDB($this->database);
     }
 
     /**
@@ -51,9 +51,8 @@ class TestCase extends Test
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Blameable\BlameableExtension::class,
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Treeable\TreeExtension::class,
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Translatable\TranslatableExtension::class,
-
-            // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Sluggable\SluggableExtension::class,
-            // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeleteableExtension::class,
+            \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Sluggable\SluggableExtension::class,
+            \Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeleteableExtension::class,
         ]);
 
         $app['config']->set('auth.providers', [

@@ -5,7 +5,7 @@ namespace Epsoftware\Laravel\Doctrine\Mongo\Test;
 use Epsoftware\Laravel\Doctrine\Mongo\Test\TestCase;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Configuration;
-use MongoDB\Client;
+use MongoClient;
 use Mongo;
 
 class MongoTest extends TestCase
@@ -21,7 +21,7 @@ class MongoTest extends TestCase
     {
         $client = Mongo::getClient();
         
-        $this->assertTrue($client instanceof Client);
+        $this->assertTrue($client instanceof MongoClient);
     }
 
     public function testGetConfiguration()

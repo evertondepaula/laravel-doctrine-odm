@@ -59,11 +59,12 @@ class MongoFailedJobProvider implements FailedJobProviderInterface
         $failedAt = (new DateTime())->format('Y-m-d H:i:s');
         $exception = (string) $exception;
 
-        $insertedId = $this->getCollection()
-                   ->insertOne(compact('connection', 'queue', 'payload', 'exception', 'failedAt'))
-                   ->getInsertedId();
+        $job = (object) compact('connection', 'queue', 'payload', 'exception', 'failedAt');
 
-        return (string) $insertedId;
+        $this->getCollection()
+             ->insert($job);
+
+        return (string) $job->_id;
     }
 
     /**
@@ -74,9 +75,10 @@ class MongoFailedJobProvider implements FailedJobProviderInterface
     public function all()
     {
         $faileds = $this->getCollection()
-                        ->find([], ['$sort' => [ '_id' => 'DESC' ]]);
+                        ->find()
+                        ->sort(['_id' => -1 ]);
 
-        return collect($faileds->toArray())->transform(function ($job, $key) {
+        return collect(iterator_to_array($faileds))->transform(function ($job, $key) {
             $job['id'] = (string) $job['_id'];
             return $job;
         })->all();
@@ -104,9 +106,10 @@ class MongoFailedJobProvider implements FailedJobProviderInterface
     */
     public function forget($id)
     {
-        return $this->getCollection()
-                ->deleteOne(['_id' => new \MongoDB\BSON\ObjectId($id)])
-                ->getDeletedCount() > 0;
+        $data = $this->getCollection()
+                    ->remove(['_id' => new \MongoDB\BSON\ObjectId($id)], ['justOne' => true]);
+
+        return (isset($data['n']) && $data['n'] >= 1);
     }
 
     /**
@@ -116,15 +119,15 @@ class MongoFailedJobProvider implements FailedJobProviderInterface
     */
     public function flush()
     {
-        $this->getCollection()->deleteMany([]);
+        $this->getCollection()->remove();
     }
 
     /**
      * Get a mongo collection instance for the collection.
      *
-     * @return \Mongo\Collection
+     * @return \MongoCollection
     */
-    protected function getCollection()
+    protected function getCollection(): \MongoCollection
     {
         return $this->connection
                     ->getDatabase($this->database)

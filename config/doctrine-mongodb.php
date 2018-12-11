@@ -32,8 +32,6 @@ return [
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Loggable\LoggableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Blameable\BlameableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Treeable\TreeExtension::class,
-
-        //Translatable, Sluggable and SoftDeletes not working with doctrine-odm version 2.*-aplha//
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Translatable\TranslatableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Sluggable\SluggableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeleteableExtension::class,

@@ -54,7 +54,7 @@ class DoctrinePresenceVerifier implements PresenceVerifierInterface
         $result = $builder
                     ->count('count')
                     ->execute()
-                    ->current();
+                    ->getSingleResult();
 
         return isset($result['count']) ? $result['count'] : 0;
     }
@@ -82,7 +82,7 @@ class DoctrinePresenceVerifier implements PresenceVerifierInterface
         $result = $builder
                     ->count('count')
                     ->execute()
-                    ->current();
+                    ->getSingleResult();
 
         return isset($result['count']) ? $result['count'] : 0;
     }

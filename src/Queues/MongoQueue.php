@@ -7,14 +7,14 @@ use Illuminate\Support\Carbon;
 use Epsoftware\Laravel\Doctrine\Mongo\Queues\Jobs\MongoJob;
 use Epsoftware\Laravel\Doctrine\Mongo\Queues\Jobs\MongoJobRecord;
 use Illuminate\Contracts\Queue\Queue as QueueContract;
-use MongoDB\Database;
+use MongoDB;
 
 class MongoQueue extends Queue implements QueueContract
 {
     /**
      * The mongo connection instance.
      *
-     * @var \MongoDB\Database
+     * @var \MongoDB
     */
     protected $database;
 
@@ -42,13 +42,13 @@ class MongoQueue extends Queue implements QueueContract
     /**
      * Create a new database queue instance.
      *
-     * @param  \MongoDB\Database $database
+     * @param  \MongoDB $database
      * @param  string            $collection
      * @param  string            $default
      * @param  int               $retryAfter
      * @return void
     */
-    public function __construct(Database $database, string $collection, $default = 'default', $retryAfter = 60)
+    public function __construct(MongoDB $database, string $collection, $default = 'default', $retryAfter = 60)
     {
         $this->database   = $database;
         $this->collection = $collection;
@@ -127,14 +127,13 @@ class MongoQueue extends Queue implements QueueContract
         $queue = $this->getQueue($queue);
         $availableAt = $this->availableAt();
 
-        return $this->database->selectCollection($this->collection)
-            ->insertMany(
-                collect((array) $jobs)->map(
-                    function ($job) use ($queue, $data, $availableAt) {
-                        return $this->buildDatabaseRecord($queue, $this->createPayload($job, $this->getQueue($queue), $data), $availableAt);
-                    }
-                )->all()
-            );
+        $jobs = collect((array) $jobs)->map(
+            function ($job) use ($queue, $data, $availableAt) {
+                return (object) $this->buildDatabaseRecord($queue, $this->createPayload($job, $this->getQueue($queue), $data), $availableAt);
+            }
+        )->all();
+
+        return $this->database->selectCollection($this->collection)->insert($jobs);
     }
 
     /**
@@ -161,12 +160,13 @@ class MongoQueue extends Queue implements QueueContract
     */
     protected function pushToDatabase($queue, $payload, $delay = 0, $attempts = 0)
     {
-        $result = $this->database
-                    ->selectCollection($this->collection)
-                    ->insertOne($this->buildDatabaseRecord($this->getQueue($queue), $payload, $this->availableAt($delay), $attempts))
-                    ->getInsertedId();
+        $job = (object) $this->buildDatabaseRecord($this->getQueue($queue), $payload, $this->availableAt($delay), $attempts);
 
-        return (string) $result;
+        $this->database
+                ->selectCollection($this->collection)
+                ->insert($job);
+
+        return (string) $job->_id;
     }
 
     /**
@@ -222,7 +222,7 @@ class MongoQueue extends Queue implements QueueContract
     protected function getNextAvailableJob($queue)
     {
         $job = $this->database->selectCollection($this->collection)
-                    ->findOneAndUpdate(
+                    ->findAndModify(
                         [
                             'queue' => $this->getQueue($queue),
                             '$or'   => [
@@ -238,9 +238,10 @@ class MongoQueue extends Queue implements QueueContract
                                 'attempts' => 1,
                             ]
                         ],
+                        null,
                         [
-                            '$sort'          => [ '_id' => 'ASC' ],
-                            'returnDocument' => \MongoDB\Operation\FindOneAndUpdate::RETURN_DOCUMENT_AFTER
+                            '$sort' => [ '_id' => 'ASC' ],
+                            'new'   => true
                         ]
                     );
 
@@ -303,9 +304,7 @@ class MongoQueue extends Queue implements QueueContract
     {
         $this->database
                 ->selectCollection($this->collection)
-                ->findOneAndDelete([
-                    '_id' => new \MongoDB\BSON\ObjectId($id)
-                ]);
+                ->remove(['_id' => new \MongoDB\BSON\ObjectId($id)], ['justOne' => true]);
     }
 
     /**
@@ -322,7 +321,7 @@ class MongoQueue extends Queue implements QueueContract
     /**
      * Get the underlying database instance.
      *
-     * @return \MongoDB\Database
+     * @return \MongoDB
     */
     public function getDatabase()
     {

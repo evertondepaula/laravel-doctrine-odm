@@ -4,7 +4,7 @@ namespace Epsoftware\Laravel\Doctrine\Mongo\Repositories;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 use Epsoftware\Laravel\Doctrine\Mongo\Pagination\PaginatesFromParams;
 use Exception;
 

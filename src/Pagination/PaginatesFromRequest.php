@@ -46,12 +46,12 @@ trait PaginatesFromRequest
      *
      * @return \Doctrine\ODM\MongoDB\Query\Builder
     */
-    abstract public function createQueryBuilder(): Builder;
+    abstract public function createQueryBuilder();
 
     /**
      * Creates a new AggregationBuilder instance that is prepopulated for this entity name.
      *
      * @return \Doctrine\ODM\MongoDB\Aggregation\Builder
     */
-    abstract public function createAggregationBuilder(): AggregationBuilder;
+    abstract public function createAggregationBuilder();
 }

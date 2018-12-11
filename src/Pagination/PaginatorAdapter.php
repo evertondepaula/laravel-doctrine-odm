@@ -199,7 +199,7 @@ class PaginatorAdapter
         $count = $this->aggregation
                       ->count('counter')
                       ->execute()
-                      ->current();
+                      ->getSingleResult();
 
         return isset($count['counter']) ? $count['counter'] : 0;
     }
