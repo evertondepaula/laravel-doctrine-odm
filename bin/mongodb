@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+$possibleAutoloadPaths = [
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../../../vendor/autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+];
+
+foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+    if (file_exists($possibleAutoloadPath)) {
+        require_once $possibleAutoloadPath;
+        break;
+    }
+}
+
+function mainDir() {
+    $dir = str_replace(['vendor', 'epsoftware/laravel-doctrine-odm', '//'], '', dirname(__DIR__));
+    return $dir;
+}
+
+new \Illuminate\Foundation\Application(mainDir());
+
+\Epsoftware\Laravel\Doctrine\Mongo\Commands\Loader::getEnvironment();
+
+$configs = \Epsoftware\Laravel\Doctrine\Mongo\Commands\Loader::getConfigs();
+
+$client = new \Epsoftware\Laravel\Doctrine\Mongo\MongoConnection($configs);
+
+$helperSet = new \Symfony\Component\Console\Helper\HelperSet([
+    'dm' => new \Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper($client->getDocumentManager()),
+]);
+
+$console = new \Symfony\Component\Console\Application('Doctrine MongoDB ODM');
+
+$console->setHelperSet($helperSet);
+$console->addCommands(\Epsoftware\Laravel\Doctrine\Mongo\Commands\Loader::getCommands());
+
+$console->run();

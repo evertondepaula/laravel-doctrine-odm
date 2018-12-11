@@ -1,0 +1,3 @@
+vendor
+.env
+docker/mongo-data

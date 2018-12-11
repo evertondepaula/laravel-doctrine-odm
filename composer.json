@@ -1,0 +1,53 @@
+{
+    "name": "epsoftware/laravel-doctrine-odm",
+    "description": "Laravel suport for doctrine mongo db",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom",
+            "email": "everton.projetos@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/config": "5.*",
+        "illuminate/contracts": "5.*",
+        "illuminate/support": "5.*",
+        "illuminate/pagination": "5.*",
+        "illuminate/database": "5.*",
+        "illuminate/queue": "5.*",
+        "vlucas/phpdotenv": "v2.5.1",
+        "symfony/console": "^4.1",
+        "alcaeus/mongo-php-adapter": "^1.1",
+        "doctrine/mongodb-odm": "2.0.0-alpha1",
+        "gedmo/doctrine-extensions": "v2.4.36"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "7.4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Epsoftware\\Laravel\\Doctrine\\Mongo\\": "src/",
+            "Epsoftware\\Laravel\\Doctrine\\Mongo\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Epsoftware\\Laravel\\Doctrine\\Mongo\\Providers\\LaravelDoctrineOdmProvider",
+                "Epsoftware\\Laravel\\Doctrine\\Mongo\\Extensions\\Gedmo\\GedmoExtensionsServiceProvider",
+                "Epsoftware\\Laravel\\Doctrine\\Mongo\\Queues\\MongoQueueProvider"
+            ],
+            "aliases": {
+                "Mongo": "Epsoftware\\Laravel\\Doctrine\\Mongo\\Facades\\Mongo",
+                "DocumentManager": "Epsoftware\\Laravel\\Doctrine\\Mongo\\Facades\\DocumentManager"
+            }
+        }
+    },
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.16"
+        }
+    },
+    "bin": "bin/mongodb"
+}

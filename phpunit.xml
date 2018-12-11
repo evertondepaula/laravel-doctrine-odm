@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+     backupStaticAttributes="false"
+     bootstrap="vendor/autoload.php"
+     colors="true"
+     convertErrorsToExceptions="true"
+     convertNoticesToExceptions="true"
+     convertWarningsToExceptions="true"
+     processIsolation="false"
+     stopOnFailure="false"
+     verbose="true"
+     >
+
+    <testsuites>
+        <testsuite name="Laravel Doctrine ODM Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="MONGO_AUTH_DATABASE" value="admin"/>
+        <env name="MONGO_HOST" value="127.0.0.1"/>
+        <env name="MONGO_PORT" value="27017"/>
+        <env name="MONGO_DATABASE" value="db_testing"/>
+        <env name="MONGO_USERNAME" value="root"/>
+        <env name="MONGO_PASSWORD" value="root"/>
+        <env name="MONGO_DATABASE_JOB" value="db_testing_job"/>
+    </php>
+</phpunit>
