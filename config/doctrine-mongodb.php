@@ -35,6 +35,7 @@ return [
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Translatable\TranslatableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Sluggable\SluggableExtension::class,
         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeleteableExtension::class,
+         // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Encryptable\EncryptExtension::class,
     ],
 
     'gedmo' => [
