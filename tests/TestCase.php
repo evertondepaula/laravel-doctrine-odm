@@ -26,6 +26,8 @@ class TestCase extends Test
     */
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('app.key', 'base64:VXLJeKuLnNGsw4dsjO6qK9JkF8H2lHi2LgOjWXmdErE=');
+
         $app['config']->set('doctrine-mongodb.connection', [
             'host'     => env('MONGO_HOST', '127.0.0.1'),
             'port'     => env('MONGO_PORT', '27017'),
@@ -51,6 +53,7 @@ class TestCase extends Test
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Blameable\BlameableExtension::class,
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Treeable\TreeExtension::class,
             \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Translatable\TranslatableExtension::class,
+            \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Encryptable\EncryptExtension::class,
 
             // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\Sluggable\SluggableExtension::class,
             // \Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeleteableExtension::class,

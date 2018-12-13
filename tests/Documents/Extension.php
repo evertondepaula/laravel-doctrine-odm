@@ -4,6 +4,7 @@ namespace Epsoftware\Laravel\Doctrine\Mongo\Test\Documents;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Epsoftware\Doctrine\ODM\Encrypt\Configuration\Encrypted;
 use Epsoftware\Laravel\Doctrine\Mongo\Extensions\SoftDeleteable\SoftDeletes;
 use Epsoftware\Laravel\Doctrine\Mongo\Extensions\Timestampable\Timestamps;
 use Epsoftware\Laravel\Doctrine\Mongo\Extensions\Blameable\Blameable;
@@ -41,6 +42,12 @@ class Extension
     */
     protected $locale;
 
+    /**
+     * @ODM\Field(type="string")
+     * @Encrypted
+    */
+    protected $document;
+
     public function getId() { return $this->id; }
 
     public function getName() { return $this->name; }
@@ -52,4 +59,7 @@ class Extension
     public function setContent($content) { $this->content = $content; }
 
     public function setTranslatableLocale($locale) { $this->locale = $locale; }
+
+    public function getDocument() { return $this->document; }
+    public function setDocument($document) { $this->document = $document; }
 }

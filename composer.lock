@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b2deda862224dcc5fb37b57eeac8031",
+    "content-hash": "825828eac17e69641576587397c7f8ed",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -407,6 +407,88 @@
             "time": "2018-11-21T01:24:55+00:00"
         },
         {
+            "name": "doctrine/dbal",
+            "version": "v2.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/dbal.git",
+                "reference": "21fdabe2fc01e004e1966f200d900554876bc63c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/21fdabe2fc01e004e1966f200d900554876bc63c",
+                "reference": "21fdabe2fc01e004e1966f200d900554876bc63c",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "^1.0",
+                "doctrine/event-manager": "^1.0",
+                "ext-pdo": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^5.0",
+                "jetbrains/phpstorm-stubs": "^2018.1.2",
+                "phpstan/phpstan": "^0.10.1",
+                "phpunit/phpunit": "^7.4",
+                "symfony/console": "^2.0.5|^3.0|^4.0",
+                "symfony/phpunit-bridge": "^3.4.5|^4.0.5"
+            },
+            "suggest": {
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            },
+            "bin": [
+                "bin/doctrine-dbal"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.9.x-dev",
+                    "dev-develop": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\DBAL\\": "lib/Doctrine/DBAL"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.",
+            "homepage": "https://www.doctrine-project.org/projects/dbal.html",
+            "keywords": [
+                "abstraction",
+                "database",
+                "dbal",
+                "mysql",
+                "persistence",
+                "pgsql",
+                "php",
+                "queryobject"
+            ],
+            "time": "2018-12-04T04:39:48+00:00"
+        },
+        {
             "name": "doctrine/event-manager",
             "version": "v1.0.0",
             "source": {
@@ -741,6 +823,88 @@
             "time": "2018-09-28T13:07:04+00:00"
         },
         {
+            "name": "doctrine/orm",
+            "version": "v2.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/doctrine2.git",
+                "reference": "434820973cadf2da2d66e7184be370084cc32ca8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/434820973cadf2da2d66e7184be370084cc32ca8",
+                "reference": "434820973cadf2da2d66e7184be370084cc32ca8",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "~1.5",
+                "doctrine/cache": "~1.6",
+                "doctrine/collections": "^1.4",
+                "doctrine/common": "^2.7.1",
+                "doctrine/dbal": "^2.6",
+                "doctrine/instantiator": "~1.1",
+                "ext-pdo": "*",
+                "php": "^7.1",
+                "symfony/console": "~3.0|~4.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^1.0",
+                "phpunit/phpunit": "^6.5",
+                "squizlabs/php_codesniffer": "^3.2",
+                "symfony/yaml": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
+            },
+            "bin": [
+                "bin/doctrine"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\ORM\\": "lib/Doctrine/ORM"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com"
+                }
+            ],
+            "description": "Object-Relational-Mapper for PHP",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database",
+                "orm"
+            ],
+            "time": "2018-11-20T23:46:46+00:00"
+        },
+        {
             "name": "doctrine/persistence",
             "version": "v1.1.0",
             "source": {
@@ -1002,6 +1166,53 @@
                 "validator"
             ],
             "time": "2018-12-04T22:38:24+00:00"
+        },
+        {
+            "name": "epsoftware/doctrine-odm-encrypt",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evertondepaula/doctrine-odm-encrypt.git",
+                "reference": "2a0fab5ec843b3cf12315d35ed15d8b77b4d3fb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evertondepaula/doctrine-odm-encrypt/zipball/2a0fab5ec843b3cf12315d35ed15d8b77b4d3fb6",
+                "reference": "2a0fab5ec843b3cf12315d35ed15d8b77b4d3fb6",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.5",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "illuminate/encryption": "^5.4",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Epsoftware\\Doctrine\\ODM\\Encrypt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Everton de Paula",
+                    "email": "everton.projetos@gmail.com"
+                }
+            ],
+            "description": "Package encrypts and decrypts Doctrine fields through life cycle events.",
+            "keywords": [
+                "aes256",
+                "decrypt",
+                "doctrine",
+                "encrypt"
+            ],
+            "time": "2018-12-13T20:24:08+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1315,16 +1526,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.16",
+            "version": "v5.7.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9acea9e0a356cba7e6a13f8784d5532a82fee92a"
+                "reference": "a15898e2de5f5ae5548a09349c558ef0435d495a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9acea9e0a356cba7e6a13f8784d5532a82fee92a",
-                "reference": "9acea9e0a356cba7e6a13f8784d5532a82fee92a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a15898e2de5f5ae5548a09349c558ef0435d495a",
+                "reference": "a15898e2de5f5ae5548a09349c558ef0435d495a",
                 "shasum": ""
             },
             "require": {
@@ -1457,7 +1668,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-12-05T14:36:24+00:00"
+            "time": "2018-12-12T14:38:09+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
@@ -1518,16 +1729,16 @@
         },
         {
             "name": "laravel/slack-notification-channel",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/slack-notification-channel.git",
-                "reference": "0ede60acbbf5f91be2e45d0c0b4d95e2f3837252"
+                "reference": "6e164293b754a95f246faf50ab2bbea3e4923cc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/0ede60acbbf5f91be2e45d0c0b4d95e2f3837252",
-                "reference": "0ede60acbbf5f91be2e45d0c0b4d95e2f3837252",
+                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/6e164293b754a95f246faf50ab2bbea3e4923cc9",
+                "reference": "6e164293b754a95f246faf50ab2bbea3e4923cc9",
                 "shasum": ""
             },
             "require": {
@@ -1571,7 +1782,7 @@
                 "notifications",
                 "slack"
             ],
-            "time": "2018-12-04T12:58:59+00:00"
+            "time": "2018-12-12T13:12:06+00:00"
         },
         {
             "name": "lcobucci/jwt",
